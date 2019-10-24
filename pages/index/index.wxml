@@ -1,0 +1,24 @@
+<!--index.wxml-->
+<view class="container index-container">
+  <view class="addTodo">
+    <image src="../../images/plus.png" bindtap="addHandle"></image>
+    <input placeholder="添加待办事项" bindblur="newTodoHandle" placeholder-class="mysize"></input>
+  </view>
+
+  <view class="todos">
+    <view class="item {{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="item.name">
+      <icon type="{{ item.completed ? 'success' : 'circle'}}" size="35rpx"></icon>
+      <text>{{ item.name }}</text>
+      <icon type="clear" size="35rpx"></icon>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="all">
+      <icon type="circle" size="35rpx"></icon>
+      <text>全选</text>
+    </view>
+    <text class="todo-num"><text class="num">4</text> 项待完成</text>
+    <text class="del">删除选中项</text>
+  </view>
+</view>

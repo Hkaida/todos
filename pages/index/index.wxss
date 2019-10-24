@@ -1,0 +1,78 @@
+/**index.wxss**/
+.index-container {
+  
+}
+.mysize {
+  font-size: 32rpx;
+}
+.addTodo {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  box-shadow: 0 0 10rpx #ccc;
+  width: 710rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.addTodo image {
+  width: 35rpx;
+  height: 35rpx;
+  margin: 0 20rpx;
+}
+.addTodo input {
+  flex:1;
+}
+
+.todos {
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  box-shadow: 0 0 10rpx #ccc;
+  width: 710rpx;
+  margin: 20rpx 0;
+}
+.todos .item {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #ccc;
+  display:flex;
+  align-items: center;
+}
+.todos .item:last-child {
+  border: 0;
+}
+.todos .item text {
+  flex:1;
+  margin-left: 20rpx;
+}
+.todos .item.completed text {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 710rpx;
+}
+.footer .all{
+  display: flex;
+  align-items: center;
+}
+.footer .all icon {
+  margin: 0 20rpx;
+}
+.footer .num {
+  color: red;
+}
+.footer .todo-num {
+  line-height: 64rpx;
+}
+.footer .del{
+  margin-right: 20rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 10rpx;
+  height: 60rpx;
+  width: 200rpx;
+  text-align: center;
+  line-height: 60rpx;
+}
