@@ -2,23 +2,35 @@
 <view class="container index-container">
   <view class="addTodo">
     <image src="../../images/plus.png" bindtap="addHandle"></image>
-    <input placeholder="添加待办事项" bindblur="newTodoHandle" placeholder-class="mysize"></input>
+    <input 
+      value="{{ input }}"
+      placeholder="添加待办事项. . ." 
+      bindinput="newTodoHandle" 
+      bindconfirm="addHandle"
+      placeholder-class="mysize">
+    </input>
   </view>
 
-  <view class="todos">
-    <view class="item {{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="item.name">
-      <icon type="{{ item.completed ? 'success' : 'circle'}}" size="35rpx"></icon>
+  <view class="todos" wx:if="{{ todos.length }}">
+    <view class="item {{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="index">
+      <icon 
+        type="{{ item.completed ? 'success' : 'circle'}}" 
+        size="44rpx" 
+        bindtap="toggleHandle"
+        data-index="{{index}}">
+      </icon>
       <text>{{ item.name }}</text>
-      <icon type="clear" size="35rpx"></icon>
+      <icon type="clear" size="44rpx" bindtap="delHandle" data-index="{{index}}"></icon>
     </view>
   </view>
+  <view class="nothing" wx:else>目前还没有待办事项哦</view>
 
-  <view class="footer">
-    <view class="all">
-      <icon type="circle" size="35rpx"></icon>
-      <text>全选</text>
+  <view class="footer" wx:if="{{ todos.length }}">
+    <view class="all" bindtap="toggleAllHandle">
+      <icon type="{{ selectAll ? 'success' : 'circle'}}" size="44rpx"></icon>
+      <text>{{ selectAll ? '取消全选' : '全选' }}</text>
     </view>
-    <text class="todo-num"><text class="num">4</text> 项待完成</text>
-    <text class="del">删除选中项</text>
+    <text class="todo-num" wx:if="{{ todoCount }}"><text class="num">{{ todoCount }}</text> 项待完成</text>
+    <text class="del" bindtap="delAllHandle">清空已完成</text>
   </view>
 </view>

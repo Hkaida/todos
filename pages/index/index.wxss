@@ -12,12 +12,12 @@
   border-radius: 10rpx;
   box-shadow: 0 0 10rpx #ccc;
   width: 710rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 98rpx;
+  line-height: 98rpx;
 }
 .addTodo image {
-  width: 35rpx;
-  height: 35rpx;
+  width: 44rpx;
+  height: 44rpx;
   margin: 0 20rpx;
 }
 .addTodo input {
@@ -32,7 +32,8 @@
   margin: 20rpx 0;
 }
 .todos .item {
-  padding: 20rpx;
+  height: 100rpx;
+  padding: 0 20rpx;
   border-bottom: 1rpx solid #ccc;
   display:flex;
   align-items: center;
@@ -47,6 +48,10 @@
 .todos .item.completed text {
   color: #999;
   text-decoration: line-through;
+}
+.nothing {
+  margin: 40rpx 0;
+  color: #999;
 }
 
 .footer {
