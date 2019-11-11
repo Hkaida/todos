@@ -399,6 +399,9 @@ Page({
   },
   maskTapHandle(){
     this.setData({
+      todoInfo: true,
+      todoEdit: true,
+      todoInsert: true,
       todoColor: true,
       mask: true
     })
