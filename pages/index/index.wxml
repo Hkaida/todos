@@ -1,36 +1,161 @@
 <!--index.wxml-->
+<wxs src="./handle.wxs" module="handle"/>
 <view class="container index-container">
   <view class="addTodo">
-    <image src="../../images/plus.png" bindtap="addHandle"></image>
+    <image src="../../images/plus.png" bindtap="addHandle" data-who="fast"></image>
     <input 
+      data-who="fast"
       value="{{ input }}"
       placeholder="添加待办事项. . ." 
-      bindinput="newTodoHandle" 
+      bindinput="newInputHandle" 
       bindconfirm="addHandle"
       placeholder-class="mysize">
     </input>
   </view>
+<!-- 进度条 -->
+  <view class="jindu">
+    <text>完成进度</text>
+    <progress 
+      percent="{{ todoProgress }}"
+      backgroundColor="#dbf5dd" 
+      stroke-width="10" 
+      border-radius="5" 
+      show-info font-size="12"
+      active
+      active-mode="forwards"
+      duration="10"
+      bindactiveend="completeHandle"/>
+  </view>
+  
+<!-- 事项列表 -->
+  <movable-area 
+    class="todos" 
+    wx:if="{{ todos.length }}" 
+    style="height: {{ todos.length * 100}}rpx;"
+    
+    >
+    <!-- y="{{index * 100}}rpx"  y="{{move.position[index]*2}}rpx"-->
+    <movable-view 
+      class="item-box"
+      style="{{move.tapActive == index ? move.style: '' }} {{move.disabled == false && move.tapActive+1 == index? 'border-top: 1rpx solid #ccc;' : ''}}"
+      wx:for="{{todos}}" 
+      wx:key="item.creationTime" 
+      y="{{index * 100}}rpx"
+      direction="vertical"
+      disabled="{{ move.disabled }}"
+      animation="{{false}}"
+      
+      >
+      <!-- hidden="{{ (move.moveActive == index ? false : true) || (move.sortTipUp)}}" -->
+      <view class="sortTip sortTip-top" hidden="{{ (move.moveActive == index ? false : true) || (move.sortTipUp)}}">
+        <view class="sortTip-left"></view>
+        <view class="sortTip-right"></view>
+      </view>
 
-  <view class="todos" wx:if="{{ todos.length }}">
-    <view class="item {{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="index">
+      <view class="item {{item.completed ? ' completed' : ''}}" hover-class="liang">
       <icon 
         type="{{ item.completed ? 'success' : 'circle'}}" 
         size="44rpx" 
         bindtap="toggleHandle"
         data-index="{{index}}">
       </icon>
-      <text>{{ item.name }}</text>
-      <icon type="clear" size="44rpx" bindtap="delHandle" data-index="{{index}}"></icon>
-    </view>
-  </view>
+      <text 
+        style="color: {{item.completed ? '' : item.color}}" 
+        bindtouchstart="moveStart"
+        bindtouchmove="moveIng"
+        bindtouchend="moveEnd"
+        data-index="{{index}}">{{ item.name }}
+      </text>
+      <view class="myIcon iconfont iconcaidan" bindtap="menuHandle" data-index="{{index}}"></view>
+      </view>
+
+      <view class="sortTip sortTip-bottom" hidden="{{ (move.moveActive == index ? false : true) || (move.sortTipDown)}}">
+        <view class="sortTip-left"></view>
+        <view class="sortTip-right"></view>
+      </view>
+    </movable-view>
+  </movable-area>
   <view class="nothing" wx:else>目前还没有待办事项哦</view>
+
+<!-- 事项详情、事项编辑 -->
+<view class="todo-info" hidden="{{todoInfo}}">
+  <view class="todo-info-head" hidden="{{!todoEdit}}">
+    <text>事项详情</text>
+    <icon type="clear" size="44rpx" bindtap="todoInfoSwitchHandle"></icon>
+  </view>
+  <view class="todo-info-head" hidden="{{todoEdit}}">
+    <text>事项编辑</text>
+    <text bindtap="changeTodoHandle">完成</text>
+  </view> 
+
+  <input 
+    class="{{ todoEdit ? '' : 'edit' }}"
+    value="{{ todo.name }}"
+    placeholder="事项名称"
+    placeholder-class="mysize"
+    bindfocus="todoEditSwitchHandle"
+    bindinput="todoNameHandle">
+  </input>
+  <textarea 
+    class="{{ todoEdit ? '' : 'edit' }}"
+    value="{{ todo.remarks }}"
+    placeholder="添加备注"
+    placeholder-class="mysize"
+    maxlength="-1"
+    bindfocus="todoEditSwitchHandle"
+    bindinput="todoRemarksHandle">
+  </textarea>
+  <text class="todo-info-time">修改时间：{{todo.lastTime}}</text>
+  <text class="todo-info-time">创建时间：{{todo.creationTime}}</text>
+</view>
+<!-- 插入事项 -->
+<view class="todo-insert" hidden="{{ todoInsert }}">
+  <view class="todo-insert-head">
+    <text>插入事项</text>
+    <text bindtap="todoInsertSwitchHandle">完成</text>
+  </view> 
+
+  <input 
+    class="edit"
+    value=""
+    placeholder="事项名称"
+    placeholder-class="mysize"
+    bindfocus=""
+    bindinput="newInputHandle">
+  </input>
+  <textarea 
+    class="edit"
+    value=""
+    placeholder="添加备注"
+    placeholder-class="mysize"
+    maxlength="-1"
+    bindfocus=""
+    bindinput="newTextareaHandle">
+  </textarea>
+</view>
+<!-- 颜色选择 -->
+<view class="todo-color" hidden="{{ todoColor }}">
+  <view 
+    class="todo-color-item" 
+    hover-class="liang" 
+    wx:for="{{colorList}}" 
+    wx:key="item.name"
+    bindtap="changeColorHandle"
+    data-color="{{ item.value }}">
+    <view class="todo-color-item-left" style="background-color:{{ item.value }}"></view>
+    <text>{{ item.name }}</text>
+  </view>
+</view>
 
   <view class="footer" wx:if="{{ todos.length }}">
     <view class="all" bindtap="toggleAllHandle">
       <icon type="{{ selectAll ? 'success' : 'circle'}}" size="44rpx"></icon>
       <text>{{ selectAll ? '取消全选' : '全选' }}</text>
     </view>
-    <text class="todo-num" wx:if="{{ todoCount }}"><text class="num">{{ todoCount }}</text> 项待完成</text>
-    <text class="del" bindtap="delAllHandle">清空已完成</text>
+    <!-- <text class="todo-num" wx:if="{{ todoCount }}"><text class="num">{{ todoCount }}</text> 项待完成</text> -->
+    <view class="del" hover-class="liang" bindtap="delAllHandle">清空已完成</view>
   </view>
+
+  <view class="mask" hidden="{{ mask }}" bindtap="maskTapHandle"></view>
 </view>
+

@@ -5,6 +5,9 @@
 .mysize {
   font-size: 32rpx;
 }
+.liang{
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .addTodo {
   display: flex;
   align-items: center;
@@ -12,8 +15,9 @@
   border-radius: 10rpx;
   box-shadow: 0 0 10rpx #ccc;
   width: 710rpx;
-  height: 98rpx;
-  line-height: 98rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  box-sizing: content-box;
 }
 .addTodo image {
   width: 44rpx;
@@ -24,22 +28,57 @@
   flex:1;
 }
 
+.jindu {
+  display: flex;
+  align-items: center;
+  width: 710rpx;
+  margin-top: 20rpx;
+  padding: 0 5rpx;
+}
+.jindu progress{
+  flex: 1;
+}
+.wx-progress-inner-bar {
+  border-radius: 10rpx;
+}
+
+.jindu text {
+  margin-right: 30rpx;
+}
+
 .todos {
   border: 1rpx solid #ccc;
   border-radius: 10rpx;
   box-shadow: 0 0 10rpx #ccc;
   width: 710rpx;
   margin: 20rpx 0;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+.todos .item-box {
+  width: 710rpx;
+  height: 100rpx;
+  border-bottom: 1rpx solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.todos .item-box:last-child {
+  border: 0;
+}
+.todos .item-box:first-child .item {
+  border-radius: 10rpx 10rpx 0 0;
+}
+.todos .item-box:last-child .item {
+  border-radius: 0 0 10rpx 10rpx;
 }
 .todos .item {
+  width: 710rpx;
   height: 100rpx;
   padding: 0 20rpx;
-  border-bottom: 1rpx solid #ccc;
-  display:flex;
+  display: flex;
   align-items: center;
-}
-.todos .item:last-child {
-  border: 0;
 }
 .todos .item text {
   flex:1;
@@ -49,9 +88,137 @@
   color: #999;
   text-decoration: line-through;
 }
+.myIcon {
+  font-size: 40rpx;
+}
+.sortTip {
+  /* background-color: #00FFcc; */
+  background-color: #ccc;
+  height: 2rpx;
+  width: 708rpx;
+  position: absolute;
+  bottom: -1rpx;
+  /* box-shadow: 0 0 6rpx 1rpx #00ff33; */
+  box-shadow: 0 0 6rpx 1rpx #999;
+}
+.sortTip-top {
+  top: -1rpx;
+}
+.sortTip-left,
+.sortTip-right {
+  width: 8rpx;
+  height: 8rpx;
+  /* background-color: #00FFcc; */
+  background-color: #ccc;
+  transform: rotate(45deg);
+  position: absolute;
+  bottom: -3rpx;
+  /* box-shadow: 0 0 12rpx 2rpx #00ff33; */
+  box-shadow: 0 0 12rpx 2rpx #999;
+}
+.sortTip-left {
+  
+  /* border: 10rpx solid transparent;
+  border-top: 20rpx solid transparent;
+  border-bottom: 20rpx solid transparent;
+  border-left: 8rpx solid #00FF33; */
+  left: -3rpx;
+}
+.sortTip-right {
+
+  /* border: 10rpx solid transparent;
+  border-top: 20rpx solid transparent;
+  border-bottom: 20rpx solid transparent;
+  border-right: 8rpx solid #00FF33; */
+  right: -3rpx;
+
+}
+
 .nothing {
   margin: 40rpx 0;
   color: #999;
+}
+
+.todo-info,
+.todo-insert,
+.todo-color {
+  z-index: 1000;
+  position: fixed;
+  top: 43%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10rpx;
+  width: 600rpx;
+}
+.todo-info-head,
+.todo-insert-head {
+  width: 600rpx;
+  height: 100rpx;
+  border-bottom: 1px solid #ccc;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todo-info input,
+.todo-insert input {
+  height: 100rpx;
+  margin: 20rpx 0;
+  padding: 0 20rpx;
+  line-height: 100rpx;
+}
+.todo-info textarea,
+.todo-insert textarea {
+  height: 300rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+}
+.todo-info input,
+.todo-info textarea,
+.todo-insert input,
+.todo-insert textarea {
+  align-items: center;
+  border-radius: 10rpx;
+  box-shadow: 0 0 10rpx #ccc;
+  width: 560rpx;
+}
+.edit {
+  border: 1rpx solid #ccc;
+}
+
+.todo-info-time{
+  width: 600rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+  line-height: 30rpx;
+  color:#888;
+  font-size: 30rpx;
+
+}
+
+.todo-color {
+  
+}
+.todo-color-item {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  border-bottom: 1rpx solid #ccc;
+  width: 600rpx;
+}
+.todo-color-item:last-child {
+  border-bottom:none;
+}
+
+.todo-color-item-left {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  margin: 0 20rpx;
+  border: 2rpx solid #ccc;
 }
 
 .footer {
@@ -66,12 +233,6 @@
 .footer .all icon {
   margin: 0 20rpx;
 }
-.footer .num {
-  color: red;
-}
-.footer .todo-num {
-  line-height: 64rpx;
-}
 .footer .del{
   margin-right: 20rpx;
   border: 2rpx solid #ccc;
@@ -80,4 +241,14 @@
   width: 200rpx;
   text-align: center;
   line-height: 60rpx;
+}
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
 }
