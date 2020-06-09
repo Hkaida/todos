@@ -13,6 +13,6 @@
 
 ### 界面图片预览
 
-![界面2.0-1](https://github.com/Hkaida/todos/blob/master/界面2.0-1.png)
+![界面2.0-1](https://github.com/Hkaida/todos/blob/master/view2.0-1.png)
 
-![界面2.0-2](https://github.com/Hkaida/todos/blob/master/界面2.0-2.png)
+![界面2.0-2](https://github.com/Hkaida/todos/blob/master/view2.0-2.png)
